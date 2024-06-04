@@ -1,0 +1,17 @@
+services:
+  pdfsigner:
+    image: oswaldojgg/pdfsigner:latest
+    container_name: pdfsigner
+    restart: unless-stopped
+    ports:
+      - "8888:8080"
+    environment:
+      LOGGING_FILE_NAME: /log/pdfsigner.log
+      JAVA_OPTS: "-Xms512m -Xmx1g"
+      HAZELCAST_CLUSTER_ENABLED: "false"
+      SPRING_CODEC_MAX_IN_MEMORY_SIZE: 30MB
+      PDFSIGNER_TSA_CONFIG_PATH: /config/tsa.properties
+      SECURITY_USE_CYPHER_DATA: "false"
+    volumes:
+      - ./tsa.properties:/config/tsa.properties
+      - ./log:/log
